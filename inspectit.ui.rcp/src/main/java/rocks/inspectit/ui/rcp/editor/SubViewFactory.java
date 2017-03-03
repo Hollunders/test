@@ -18,6 +18,7 @@ import rocks.inspectit.ui.rcp.editor.table.input.HttpTimerDataInputController;
 import rocks.inspectit.ui.rcp.editor.table.input.InvocOverviewInputController;
 import rocks.inspectit.ui.rcp.editor.table.input.JmxSensorDataInputController;
 import rocks.inspectit.ui.rcp.editor.table.input.MethodInvocInputController;
+import rocks.inspectit.ui.rcp.editor.table.input.MobileDataInputController;
 import rocks.inspectit.ui.rcp.editor.table.input.MultiInvocDataInputController;
 import rocks.inspectit.ui.rcp.editor.table.input.NavigationInvocOverviewInputController;
 import rocks.inspectit.ui.rcp.editor.table.input.SqlParameterAggregationInputControler;
@@ -240,8 +241,14 @@ public final class SubViewFactory {
 
 			return alertInvocSubView;
 		case TRACING:
+			/* Mobile Data only for testing inside the tracing view, later inside Tracing_details */
+			TabbedCompositeSubView invocTabbedSubViewTracing = new TabbedCompositeSubView();
+			ISubView invocMobileDataTracing = new TableSubView(new MobileDataInputController());
+			invocTabbedSubViewTracing.addSubView(invocMobileDataTracing, "Mobile Data", InspectIT.getDefault().getImage(InspectITImages.IMG_METHOD_PUBLIC));
+
 			SashCompositeSubView tracingSashSubView = new SashCompositeSubView();
-			tracingSashSubView.addSubView(new TableSubView(new TraceOverviewInputController()));
+			tracingSashSubView.addSubView(new TableSubView(new TraceOverviewInputController()), 1);
+			tracingSashSubView.addSubView(invocTabbedSubViewTracing, 2);
 			return tracingSashSubView;
 		case TRACING_DETAILS:
 			TabbedCompositeSubView invocTabbedSubView2 = new TabbedCompositeSubView();
