@@ -505,7 +505,9 @@ public class InvocationSequenceHook implements IMethodHook, IConstructorHook, IC
 		if (dataObject.getClass().equals(HttpTimerData.class)) {
 			// don't overwrite ourself but overwrite timers
 			if ((null == invocationSequenceData.getTimerData()) || invocationSequenceData.getTimerData().getClass().equals(TimerData.class)) {
-				invocationSequenceData.setTimerData((HttpTimerData) dataObject);
+				// For mobile data
+				HttpTimerData httpTimerData = (HttpTimerData) dataObject;
+				invocationSequenceData.setTimerData(httpTimerData);
 			}
 		}
 

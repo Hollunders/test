@@ -9,6 +9,7 @@ import rocks.inspectit.shared.all.communication.data.ExceptionSensorData;
 import rocks.inspectit.shared.all.communication.data.HttpTimerData;
 import rocks.inspectit.shared.all.communication.data.InvocationSequenceData;
 import rocks.inspectit.shared.all.communication.data.JmxSensorValueData;
+import rocks.inspectit.shared.all.communication.data.MobilePeriodicMeasurement;
 import rocks.inspectit.shared.all.communication.data.SqlStatementData;
 import rocks.inspectit.shared.all.communication.data.TimerData;
 import rocks.inspectit.shared.all.communication.data.cmr.BusinessTransactionData;
@@ -231,5 +232,31 @@ public abstract class StorageServiceProvider {
 		storageBusinessContextService.setIndexingTree(indexingTree);
 		storageBusinessContextService.setBusinessTransactions(businessTransactions);
 		return storageBusinessContextService;
+	}
+	
+
+	/**
+	 * @return Spring created {@link StorageMobilePeriodicMeasurementAccessService }.
+	 */
+	protected abstract StorageMobilePeriodicMeasurementAccessService createStorageMobilePeriodicMeasurementAccessService();
+
+	/**
+	 * Properly initialized {@link StorageJmxDataAccessService}.
+	 *
+	 * @param storageRepositoryDefinition
+	 *            {@link StorageRepositoryDefinition}.
+	 * @param localStorageData
+	 *            {@link LocalStorageData}.
+	 * @param storageTreeComponent
+	 *            Indexing tree.
+	 * @return Properly initialized {@link StorageMobilePeriodicMeasurementAccessService}.
+	 */
+	public StorageMobilePeriodicMeasurementAccessService createStorageMobilePeriodicMeasurementAccessService(StorageRepositoryDefinition storageRepositoryDefinition, LocalStorageData localStorageData,
+			IStorageTreeComponent<MobilePeriodicMeasurement> storageTreeComponent) {
+		StorageMobilePeriodicMeasurementAccessService storageMobilePeriodicMeasurementAccessService = createStorageMobilePeriodicMeasurementAccessService();
+		storageMobilePeriodicMeasurementAccessService.setStorageRepositoryDefinition(storageRepositoryDefinition);
+		storageMobilePeriodicMeasurementAccessService.setLocalStorageData(localStorageData);
+		storageMobilePeriodicMeasurementAccessService.setIndexingTree(storageTreeComponent);
+		return storageMobilePeriodicMeasurementAccessService;
 	}
 }

@@ -67,6 +67,8 @@
 
 	<bean id="storageBusinessContextService" class="rocks.inspectit.ui.rcp.repository.service.storage.StorageBusinessContextService" scope="prototype" lazy-init="true" />
 
+	<bean id="storageMobilePeriodicMeasurementAccessService" class="rocks.inspectit.ui.rcp.repository.service.storage.StorageMobilePeriodicMeasurementAccessService" scope="prototype" lazy-init="true" />
+	
 	<!-- add the provider here directly -->
 
 	<bean id="storageServiceProvider" class="rocks.inspectit.ui.rcp.repository.service.storage.StorageServiceProvider">
@@ -78,6 +80,7 @@
 		<lookup-method name="createStorageGlobalDataAccessService" bean="storageGlobalDataAccessService" />
 		<lookup-method name="createStorageJmxDataAccessService" bean="storageJmxDataAccessService" />
 		<lookup-method name="createStorageBusinessContextService" bean="storageBusinessContextService" />
+		<lookup-method name="createStorageMobilePeriodicMeasurementAccessService" bean="storageMobilePeriodicMeasurementAccessService" />
 	</bean>
 
 	<bean id="IOExecutorService" class="rocks.inspectit.shared.cs.storage.util.ExecutorServiceFactory">

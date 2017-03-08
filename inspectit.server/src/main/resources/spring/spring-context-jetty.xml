@@ -283,6 +283,21 @@
 		<property name="pathSpec" value="/remoting/SpanService" />
 	</bean>
 	<!-- END -->
+	
+	<!-- Mobile Periodic Measurement Access Service -->
+	<bean name="mobilePeriodicMeasurementAccessRequestHandlerServlet" class="org.springframework.web.context.support.HttpRequestHandlerServlet">
+	</bean>
+
+	<bean id="mobilePeriodicMeasurementAccessServletHolder" class="org.mortbay.jetty.servlet.ServletHolder">
+		<property name="name" value="mobilePeriodicMeasurementAccessServiceExporter" />
+		<property name="servlet" ref="mobilePeriodicMeasurementAccessRequestHandlerServlet" />
+	</bean>
+
+	<bean id="mobilePeriodicMeasurementAccessServiceMapping" class="org.mortbay.jetty.servlet.ServletMapping">
+		<property name="servletName" value="mobilePeriodicMeasurementAccessServiceExporter" />
+		<property name="pathSpec" value="/remoting/MobilePeriodicMeasurementAccessService" />
+	</bean>
+	<!-- END -->
 
 	<!-- DEFAULT SERVER FOR STATIC CONTENT -->
 	<bean id="defaultServlet" class="org.mortbay.jetty.servlet.DefaultServlet" />
@@ -400,6 +415,7 @@
 				<ref bean="alertAccessServletHolder" />
 				<ref bean="agentInstrumentationServletHolder" />
 				<ref bean="spanServletHolder" />
+				<ref bean="mobilePeriodicMeasurementAccessServletHolder" />
 				<ref bean="defaultServletHolder" />
 				<ref bean="uploadServletHolder" />
 				<ref bean="springDispatcherServletHolder" />
@@ -423,6 +439,7 @@
 				<ref bean="alertAccessServiceMapping" />
 				<ref bean="agentInstrumentationServiceMapping" />
 				<ref bean="spanServiceMapping" />
+				<ref bean="mobilePeriodicMeasurementAccessServiceMapping" />
 				<ref bean="defaultServletMapping" />
 				<ref bean="uploadServletMapping" />
 				<ref bean="springDispatcherServletMapping" />

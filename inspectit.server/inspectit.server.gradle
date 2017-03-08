@@ -7,6 +7,7 @@
 apply from: 'inspectit.server.properties.gradle'
 evaluationDependsOn(':inspectit.shared.all')
 evaluationDependsOn(':inspectit.shared.cs')
+evaluationDependsOn(':inspectit.agent.java.sdk')
 defaultTasks 'releaseAndAnalyze'
 
 /** used by the eclipse buildship plugin */
@@ -43,6 +44,7 @@ configurations {
 dependencies {
 	compile project(':inspectit.shared.all')
 	compile project(':inspectit.shared.cs')
+	compile project(':inspectit.agent.java.sdk')
 	testCompile project (path: ':inspectit.shared.all', configuration: 'testArchives')
 }
 

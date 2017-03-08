@@ -33,10 +33,12 @@ import rocks.inspectit.shared.all.cmr.service.ICachedDataService;
 import rocks.inspectit.shared.all.communication.comparator.DefaultDataComparatorEnum;
 import rocks.inspectit.shared.all.communication.comparator.IDataComparator;
 import rocks.inspectit.shared.all.communication.comparator.ResultComparator;
+import rocks.inspectit.shared.all.communication.data.MobilePeriodicMeasurement;
 import rocks.inspectit.shared.all.tracing.comparator.SpanComparator;
 import rocks.inspectit.shared.all.tracing.data.AbstractSpan;
 import rocks.inspectit.shared.all.tracing.data.ISpanIdentAware;
 import rocks.inspectit.shared.all.tracing.data.Span;
+import rocks.inspectit.shared.cs.cmr.service.IMobilePeriodicMeasurementAccessService;
 import rocks.inspectit.shared.cs.cmr.service.ISpanService;
 import rocks.inspectit.ui.rcp.InspectIT;
 import rocks.inspectit.ui.rcp.InspectITImages;
@@ -137,7 +139,10 @@ public class TraceOverviewInputController extends AbstractTableInputController i
 	 * Span service.
 	 */
 	private ISpanService spanService;
-
+	/**
+	 * Periodic Measurement service.
+	 */
+	private IMobilePeriodicMeasurementAccessService mobilePeriodicMeasurementAccessService;
 	/**
 	 * Global data access service.
 	 */
@@ -187,6 +192,7 @@ public class TraceOverviewInputController extends AbstractTableInputController i
 
 		spanService = inputDefinition.getRepositoryDefinition().getSpanService();
 		cachedDataService = inputDefinition.getRepositoryDefinition().getCachedDataService();
+		mobilePeriodicMeasurementAccessService = inputDefinition.getRepositoryDefinition().getMobilePeriodicMeasurementAccess();
 	}
 
 	/**
@@ -297,6 +303,10 @@ public class TraceOverviewInputController extends AbstractTableInputController i
 		} else {
 			spans = spanService.getRootSpans(limit, fromDate, toDate, resultComparator);
 		}
+
+		List<MobilePeriodicMeasurement> measurements = mobilePeriodicMeasurementAccessService.getMobilePeriodicMeasurementInstances();
+		System.out.println(measurements.size());
+		System.out.println(measurements.get(0).getBatteryPower());
 
 		spanList.clear();
 		if (CollectionUtils.isNotEmpty(spans)) {

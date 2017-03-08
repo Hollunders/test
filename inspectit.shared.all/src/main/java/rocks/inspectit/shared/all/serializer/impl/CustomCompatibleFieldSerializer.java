@@ -116,7 +116,7 @@ public class CustomCompatibleFieldSerializer<T> extends FieldSerializer<T> {
 			CachedField<?>[] fields = getFields();
 
 			// Remove unwanted fields
-			for (com.esotericsoftware.kryo.serializers.FieldSerializer.CachedField<?> field2 : fields) {
+			for (com.esotericsoftware.kryo.serializers.FieldSerializer.CachedField field2 : fields) {
 				Field field = field2.getField();
 				if (null == schema.getFieldMarker(field.getName())) {
 					super.removeField(field.getName());

@@ -16,6 +16,7 @@ import rocks.inspectit.shared.cs.cmr.service.ISpanService;
 import rocks.inspectit.shared.cs.cmr.service.ISqlDataAccessService;
 import rocks.inspectit.shared.cs.cmr.service.IStorageService;
 import rocks.inspectit.shared.cs.cmr.service.ITimerDataAccessService;
+import rocks.inspectit.shared.cs.cmr.service.IMobilePeriodicMeasurementAccessService;
 import rocks.inspectit.ui.rcp.repository.CmrRepositoryDefinition;
 
 /**
@@ -328,6 +329,26 @@ public abstract class CmrServiceProvider {
 	 */
 	protected abstract IAgentInstrumentationService getAgentInstrumentationService();
 
+	/**
+	 * Returns properly initialized {@link IMobilePeriodicMeasurementAccessService}.
+	 *
+	 * @param cmrRepositoryDefinition
+	 *            {@link CmrRepositoryDefinition} to bound service to.
+	 * @return Returns {@link IMobilePeriodicMeasurementAccessService}.
+	 */
+	public IMobilePeriodicMeasurementAccessService getMobilePeriodicMeasurementAccessService(CmrRepositoryDefinition cmrRepositoryDefinition) {
+		IMobilePeriodicMeasurementAccessService mobilePeriodicMeasurementService = getMobilePeriodicMeasurementAccessService();
+		((ICmrService) mobilePeriodicMeasurementService).initService(cmrRepositoryDefinition);
+		return mobilePeriodicMeasurementService;
+	}
+	
+	/**
+	 * Returns Spring created {@link IMobilePeriodicMeasurementAccessService}.
+	 *
+	 * @return Returns Spring created {@link IMobilePeriodicMeasurementAccessService}.
+	 */
+	protected abstract IMobilePeriodicMeasurementAccessService getMobilePeriodicMeasurementAccessService();
+	
 	/**
 	 * Returns properly initialized {@link ISpanService}.
 	 *

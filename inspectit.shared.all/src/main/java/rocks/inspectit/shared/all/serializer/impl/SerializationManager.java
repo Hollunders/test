@@ -79,6 +79,7 @@ import rocks.inspectit.shared.all.communication.data.InvocationSequenceData;
 import rocks.inspectit.shared.all.communication.data.JmxSensorValueData;
 import rocks.inspectit.shared.all.communication.data.LoggingData;
 import rocks.inspectit.shared.all.communication.data.MemoryInformationData;
+import rocks.inspectit.shared.all.communication.data.MobilePeriodicMeasurement;
 import rocks.inspectit.shared.all.communication.data.ParameterContentData;
 import rocks.inspectit.shared.all.communication.data.ParameterContentType;
 import rocks.inspectit.shared.all.communication.data.RuntimeInformationData;
@@ -405,6 +406,10 @@ public class SerializationManager implements ISerializer, IKryoProvider, Initial
 		kryo.register(ClientSpan.class, new CustomCompatibleFieldSerializer<ClientSpan>(kryo, ClientSpan.class, schemaManager, true));
 		kryo.register(ServerSpan.class, new CustomCompatibleFieldSerializer<ServerSpan>(kryo, ServerSpan.class, schemaManager, true));
 		kryo.register(SpanComparator.class, new EnumSerializer(SpanComparator.class));
+
+		// added with enpro
+		kryo.register(MobilePeriodicMeasurement.class, new CustomCompatibleFieldSerializer<MobilePeriodicMeasurement>(kryo, MobilePeriodicMeasurement.class, schemaManager, true));
+
 	}
 
 	/**

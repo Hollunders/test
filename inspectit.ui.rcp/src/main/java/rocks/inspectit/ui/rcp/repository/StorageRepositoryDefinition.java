@@ -11,6 +11,7 @@ import rocks.inspectit.shared.all.communication.data.ExceptionSensorData;
 import rocks.inspectit.shared.all.communication.data.HttpTimerData;
 import rocks.inspectit.shared.all.communication.data.InvocationSequenceData;
 import rocks.inspectit.shared.all.communication.data.JmxSensorValueData;
+import rocks.inspectit.shared.all.communication.data.MobilePeriodicMeasurement;
 import rocks.inspectit.shared.all.communication.data.SqlStatementData;
 import rocks.inspectit.shared.all.communication.data.TimerData;
 import rocks.inspectit.shared.all.communication.data.cmr.BusinessTransactionData;
@@ -20,6 +21,7 @@ import rocks.inspectit.shared.cs.cmr.service.IGlobalDataAccessService;
 import rocks.inspectit.shared.cs.cmr.service.IHttpTimerDataAccessService;
 import rocks.inspectit.shared.cs.cmr.service.IInvocationDataAccessService;
 import rocks.inspectit.shared.cs.cmr.service.IJmxDataAccessService;
+import rocks.inspectit.shared.cs.cmr.service.IMobilePeriodicMeasurementAccessService;
 import rocks.inspectit.shared.cs.cmr.service.ISpanService;
 import rocks.inspectit.shared.cs.cmr.service.ISqlDataAccessService;
 import rocks.inspectit.shared.cs.cmr.service.ITimerDataAccessService;
@@ -92,11 +94,16 @@ public class StorageRepositoryDefinition implements RepositoryDefinition {
 	 * {@link IBusinessContextDefinition}.
 	 */
 	private IBusinessContextManagementService businessContextService;
-
+	
 	/**
 	 * {@link ISpanService}.
 	 */
 	private ISpanService spanService;
+	
+	/**
+	 * {@link IMobilePeriodicMeasurementAccessService}.
+	 */
+	private IMobilePeriodicMeasurementAccessService mobilePeriodicMeasurementAccessService;
 
 	/**
 	 * {@link StorageServiceProvider} for instantiating storage services.
@@ -213,13 +220,21 @@ public class StorageRepositoryDefinition implements RepositoryDefinition {
 	public IBusinessContextManagementService getBusinessContextMangementService() {
 		return businessContextService;
 	}
-
+	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public ISpanService getSpanService() {
 		return spanService;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public IMobilePeriodicMeasurementAccessService getMobilePeriodicMeasurementAccess() {
+		return mobilePeriodicMeasurementAccessService;
 	}
 
 	/**
@@ -236,6 +251,7 @@ public class StorageRepositoryDefinition implements RepositoryDefinition {
 		httpTimerDataAccessService = storageServiceProvider.createStorageHttpTimerDataAccessService(this, localStorageData, (IStorageTreeComponent<HttpTimerData>) indexingTree);
 		jmxDataAccessService = storageServiceProvider.createStorageJmxDataAccessService(this, localStorageData, (IStorageTreeComponent<JmxSensorValueData>) indexingTree);
 		businessContextService = storageServiceProvider.createStorageBusinessContextService(this, localStorageData, (IStorageTreeComponent<DefaultData>) indexingTree, businessTransactions);
+		mobilePeriodicMeasurementAccessService = storageServiceProvider.createStorageMobilePeriodicMeasurementAccessService(this, localStorageData, (IStorageTreeComponent<MobilePeriodicMeasurement>) indexingTree);
 		spanService = new StorageSpanService();
 		// for storage we use the regular cached data service because ids can never change
 		cachedDataService = new CachedDataService(globalDataAccessService, businessContextService);

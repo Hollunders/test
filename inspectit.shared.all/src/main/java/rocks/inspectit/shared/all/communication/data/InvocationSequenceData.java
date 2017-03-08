@@ -68,7 +68,7 @@ public class InvocationSequenceData extends MethodSensorData implements ISpanIde
 	 */
 	@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 	private LoggingData loggingData;
-
+	
 	/**
 	 * The information about the span the invocation is belonging to or invocation is calling to.
 	 * Can be <code>null</code>.

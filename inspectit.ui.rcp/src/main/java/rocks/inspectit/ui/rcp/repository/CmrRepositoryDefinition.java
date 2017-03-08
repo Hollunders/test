@@ -22,6 +22,7 @@ import rocks.inspectit.shared.cs.cmr.service.ISpanService;
 import rocks.inspectit.shared.cs.cmr.service.ISqlDataAccessService;
 import rocks.inspectit.shared.cs.cmr.service.IStorageService;
 import rocks.inspectit.shared.cs.cmr.service.ITimerDataAccessService;
+import rocks.inspectit.shared.cs.cmr.service.IMobilePeriodicMeasurementAccessService;
 import rocks.inspectit.shared.cs.cmr.service.cache.CachedDataService;
 import rocks.inspectit.ui.rcp.InspectIT;
 import rocks.inspectit.ui.rcp.provider.ICmrRepositoryProvider;
@@ -237,6 +238,12 @@ public class CmrRepositoryDefinition implements RepositoryDefinition, ICmrReposi
 	 * CMR repository change listeners.
 	 */
 	private List<CmrRepositoryChangeListener> cmrRepositoryChangeListeners = new ArrayList<>(1);
+	
+	/**
+	 * MobilePeriodicMeasurement access service
+	 */
+	private IMobilePeriodicMeasurementAccessService mobilePeriodicMeasurementAccessService;
+
 
 	/**
 	 * Calls default constructor with name 'Undefined'.
@@ -283,8 +290,8 @@ public class CmrRepositoryDefinition implements RepositoryDefinition, ICmrReposi
 		influxDBService = cmrServiceProvider.getInfluxDBService(this);
 		alertAccessService = cmrServiceProvider.getAlertAccessService(this);
 		agentInstrumentationService = cmrServiceProvider.getAgentInstrumentationService(this);
+		mobilePeriodicMeasurementAccessService = cmrServiceProvider.getMobilePeriodicMeasurementAccessService(this);
 		spanService = cmrServiceProvider.getSpanService(this);
-
 		cachedDataService = new RefreshEditorsCachedDataService(globalDataAccessService, businessContextManagementService, this);
 	}
 
@@ -391,6 +398,14 @@ public class CmrRepositoryDefinition implements RepositoryDefinition, ICmrReposi
 	@Override
 	public ISpanService getSpanService() {
 		return spanService;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public IMobilePeriodicMeasurementAccessService getMobilePeriodicMeasurementAccess() {
+		return mobilePeriodicMeasurementAccessService;
 	}
 
 	/**

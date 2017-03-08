@@ -39,6 +39,7 @@
 		<lookup-method name="getAlertAccessService" bean="alertAccessService" />
 		<lookup-method name="getAgentInstrumentationService" bean="agentInstrumentationService" />
 		<lookup-method name="getSpanService" bean="spanService" />
+		<lookup-method name="getMobilePeriodicMeasurementAccessService" bean="mobilePeriodicMeasurementAccessService" />
 	</bean>
 
 	<!-- CmrManagementService -->
@@ -394,6 +395,30 @@
 		<property name="serviceName" value="AgentInstrumentationService" />
 	</bean>
 	<!-- AlertAccessService End -->
+	
+	<!-- MobilePeriodicMeasurementAccessService -->
+	<bean id="mobilePeriodicMeasurementAccessService" class="org.springframework.aop.framework.ProxyFactoryBean" scope="prototype" lazy-init="true">
+		<property name="proxyInterfaces">
+			<list>
+				<value>rocks.inspectit.shared.cs.cmr.service.IMobilePeriodicMeasurementAccessService</value>
+				<value>rocks.inspectit.ui.rcp.repository.service.cmr.ICmrService</value>
+			</list>
+		</property>
+		<property name="target" ref="mobilePeriodicMeasurementAccessServiceTarget" />
+		<property name="interceptorNames">
+			<list>
+				<value>serviceMethodInterceptor</value>
+				<value>interfaceInterceptor</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="mobilePeriodicMeasurementAccessServiceTarget" class="rocks.inspectit.ui.rcp.repository.service.cmr.CmrService" scope="prototype" lazy-init="true">
+		<property name="serviceInterface" value="rocks.inspectit.shared.cs.cmr.service.IMobilePeriodicMeasurementAccessService" />
+		<property name="serviceName" value="MobilePeriodicMeasurementAccessService" />
+	</bean>
+	<!-- MobilePeriodicMeasurementAccessService End -->
+	
 	
 	<!-- SpanService -->
 	<bean id="spanService" class="org.springframework.aop.framework.ProxyFactoryBean" scope="prototype" lazy-init="true">

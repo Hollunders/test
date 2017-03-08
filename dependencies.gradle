@@ -215,7 +215,12 @@ dependencies {
 		
 		'org.apache.commons:commons-email:1.4',
 		'javax.activation:activation:1.1.1',
-		'javax.mail:mail:1.4'
+		'javax.mail:mail:1.4',
+		'io.gsonfire:gson-fire:1.8.0',
+		files('lib/adapters.inspectit.jar'),
+		files('lib/adapters.shared.jar'),
+		files('lib/diagnoseIT.jar'),
+		files('lib/open.xtrace.api.jar'),
 	)
 		
 	serverTest (

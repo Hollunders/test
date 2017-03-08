@@ -1,0 +1,47 @@
+package rocks.inspectit.server.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import rocks.inspectit.server.dao.impl.BufferPeriodicMeasurementDao;
+import rocks.inspectit.shared.all.communication.data.MobilePeriodicMeasurement;
+import rocks.inspectit.shared.cs.cmr.service.ISpanService;
+//github.com/tangerstein/inspectIT.git
+import rocks.inspectit.shared.cs.cmr.service.IMobilePeriodicMeasurementAccessService;
+
+/**
+ * Implementation of the {@link IMobilePeriodicMeasurementAccessService} that reads data from the buffer.
+ *
+ * @author Tobias Angerstein, Manuel Palenga
+ *
+ */
+@Service
+public class MobilePeriodicMeasurementAccessService implements IMobilePeriodicMeasurementAccessService {
+
+	/**
+	 * The mobilePeriodicMeasurement DAO.
+	 */
+	@Autowired
+	private BufferPeriodicMeasurementDao periodicMeasurementDao;
+
+	@Override
+	public List<MobilePeriodicMeasurement> getMobilePeriodicMeasurementInstances() {
+		return periodicMeasurementDao.getMobilePeriodicMeasurementInstances();
+	}
+
+	@Override
+	public List<MobilePeriodicMeasurement> getMobilePeriodicMeasurementInstances(
+			long deviceID) {
+		
+		return periodicMeasurementDao.getMobilePeriodicMeasurementInstances(deviceID);
+	}
+
+	@Override
+	public List<MobilePeriodicMeasurement> getMobilePeriodicMeasurementInstances(
+			long deviceID, long fromTimestamp, long toTimestamp) {
+		// TODO Auto-generated method stub
+		return periodicMeasurementDao.getMobilePeriodicMeasurementInstances(deviceID, fromTimestamp, toTimestamp);
+	}
+}
